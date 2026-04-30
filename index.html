@@ -1,1 +1,799 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Minutage YATAI MTL 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf7;
+  --bg-card: #ffffff;
+  --bg-soft: #f4f3ee;
+  --ink: #0a0a0a;
+  --ink-2: #404040;
+  --ink-3: #737373;
+  --ink-4: #a3a3a3;
+  --line: #e7e5e0;
+  --line-soft: #f0eee8;
+  --accent: #c41e3a;
+  --accent-soft: #fef2f3;
+  --warm: #d4a574;
+  --live: #00875a;
+  --live-soft: #e8f5ee;
+  --shadow-sm: 0 1px 2px rgba(10,10,10,0.04);
+  --shadow-md: 0 4px 12px rgba(10,10,10,0.06);
+  --shadow-lg: 0 12px 32px rgba(10,10,10,0.08);
+  --radius: 4px;
+  --radius-lg: 8px;
+}
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* === LAYOUT === */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 16px; }
+}
+
+/* === HEADER === */
+.header {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(250,250,247,0.92);
+}
+
+.header-inner {
+  padding: 20px 0 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.brand-mark {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.brand-mark::before {
+  content: "●";
+  color: var(--accent);
+  margin-right: 8px;
+  font-size: 10px;
+  vertical-align: middle;
+}
+
+.brand-divider {
+  color: var(--ink-4);
+  font-weight: 300;
+}
+
+.brand-sub {
+  font-size: 13px;
+  color: var(--ink-3);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.event-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--ink-3);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 6px;
+}
+
+.event-meta span { display: inline-block; }
+.event-meta strong { color: var(--ink); font-weight: 600; }
+
+/* === SEARCH BAR === */
+.toolbar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search {
+  flex: 1;
+  position: relative;
+}
+
+.search input {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  padding: 10px 14px 10px 40px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  border-radius: var(--radius);
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.search input:focus {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(10,10,10,0.06);
+}
+
+.search input::placeholder { color: var(--ink-4); }
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-4);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.btn-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-soft);
+  border: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 14px;
+  line-height: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-clear.visible { display: flex; }
+.btn-clear:hover { background: var(--ink); color: white; }
+
+.btn-now {
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: white;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius);
+  letter-spacing: 0.02em;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-now:hover { background: var(--accent); border-color: var(--accent); }
+
+.btn-now::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--live);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,135,90,0.6); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(0,135,90,0); }
+}
+
+/* === DAYS NAV === */
+.days-nav {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  padding: 12px 0 0;
+  margin: 0 -24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+@media (max-width: 640px) {
+  .days-nav { margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+}
+
+.days-nav::-webkit-scrollbar { display: none; }
+
+.day-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 14px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-3);
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+.day-btn .day-name {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: inherit;
+}
+
+.day-btn .day-num {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.day-btn .day-phase {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-4);
+  margin-top: 2px;
+}
+
+.day-btn:hover { color: var(--ink); }
+.day-btn:hover .day-phase { color: var(--ink-3); }
+
+.day-btn.active {
+  border-bottom-color: var(--accent);
+  color: var(--ink);
+}
+
+.day-btn.active .day-phase { color: var(--accent); font-weight: 600; }
+
+/* === FILTERS === */
+.filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.chip {
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  padding: 5px 11px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+  cursor: pointer;
+  border-radius: 999px;
+  transition: all 0.12s ease;
+  letter-spacing: 0.01em;
+}
+
+.chip:hover { border-color: var(--ink); color: var(--ink); }
+
+.chip.active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.chip-count {
+  display: inline-block;
+  margin-left: 4px;
+  opacity: 0.5;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+
+/* === DAY HEADING === */
+.day-heading {
+  margin: 32px 0 16px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.day-heading h2 {
+  font-family: 'Figtree', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.day-heading .day-stats {
+  font-size: 12px;
+  color: var(--ink-3);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* === EVENT CARDS === */
+.events {
+  padding-bottom: 80px;
+}
+
+.event {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line-soft);
+  transition: background 0.15s ease;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .event {
+    grid-template-columns: 64px 1fr;
+    gap: 14px;
+    padding: 16px 0;
+  }
+}
+
+.event:hover { background: var(--bg-soft); margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+
+.event.live {
+  background: var(--live-soft);
+  margin: 0 -16px;
+  padding: 18px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid #b8e0c8;
+  border-bottom-color: #b8e0c8;
+}
+
+.event.live::before {
+  content: "EN COURS";
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--live);
+  background: white;
+  padding: 3px 7px;
+  border-radius: 3px;
+  border: 1px solid #b8e0c8;
+}
+
+.event-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  padding-top: 1px;
+}
+
+.event-time.no-time { color: var(--ink-4); font-weight: 400; }
+
+.event-body { min-width: 0; }
+
+.event-task {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.45;
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+.event-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  font-size: 12px;
+  color: var(--ink-3);
+  align-items: center;
+}
+
+.event-meta-row > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.event-meta-row .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-4);
+}
+
+.event-meta-row .value { color: var(--ink-2); font-weight: 500; }
+
+.zone-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--bg-soft);
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 3px;
+  letter-spacing: 0.01em;
+}
+
+.event-notes {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-3);
+  font-style: italic;
+  border-left: 2px solid var(--line);
+  padding-left: 10px;
+  line-height: 1.5;
+}
+
+/* === EMPTY STATE === */
+.empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--ink-3);
+}
+
+.empty-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+.empty-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 4px;
+}
+
+.empty-sub {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+/* === HIGHLIGHT (search) === */
+mark {
+  background: #fef3c7;
+  color: var(--ink);
+  padding: 0 2px;
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+/* === FOOTER === */
+.footer {
+  margin-top: 40px;
+  padding: 24px 0 32px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--ink-4);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* === RESPONSIVE TWEAKS === */
+@media (max-width: 480px) {
+  .brand-mark { font-size: 19px; }
+  .day-heading h2 { font-size: 22px; }
+  .event-task { font-size: 14px; }
+  .event-meta-row { font-size: 11px; }
+}
+
+/* Scroll into view for live event */
+.event.live { scroll-margin-top: 200px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark">ASIASIE</span>
+        <span class="brand-divider">/</span>
+        <span class="brand-sub">Minutage staff</span>
+      </div>
+      <div class="event-meta">
+        <span><strong>YATAI MTL 2026</strong></span>
+        <span>2 → 10 juin</span>
+        <span>40 rue des Seigneurs</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="container">
+    <div class="search-row">
+      <div class="search">
+        <span class="search-icon">⌕</span>
+        <input type="search" id="searchInput" placeholder="Rechercher une tâche, une personne, un lieu..." autocomplete="off">
+        <button class="btn-clear" id="btnClear" type="button">×</button>
+      </div>
+      <button class="btn-now" id="btnNow" type="button">Maintenant</button>
+    </div>
+    <nav class="days-nav" id="daysNav"></nav>
+    <div class="filters" id="filters"></div>
+  </div>
+</div>
+
+<main class="container">
+  <div id="content"></div>
+  <footer class="footer">
+    <span>YATAI MTL 2026 — Minutage de production</span>
+    <span id="totalEvents"></span>
+  </footer>
+</main>
+
+<script>
+const EVENTS = [{"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "", "tache": "Pick up le piano à la caserne le matin", "who": "Diệp et Alex", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "9.0", "tache": "Run des ateliers de Line", "who": "diep et alex", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "9.0"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "9.0", "tache": "camion 20'\naller chercher les poubelles a st ferdinand", "who": "Diệp et Alex", "where": "", "materiel": "Poubelles + Stations de poubelles (6) + Sac de sables au besoin", "notes": "", "zone": "", "heure_min": 0, "heure_display": "9.0"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "9.0", "tache": "Chercher la commande Alambika", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "9.0"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "9.0", "tache": "aller chercher le colis chez la voisine", "who": "tatiana", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "9.0"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "?", "tache": "Van\nPick up des canettes Asahi", "who": "thien", "where": "Time out Market", "materiel": "", "notes": "Ne pas oublier la carte de crédit", "zone": "Autre", "heure_min": 0, "heure_display": "?"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "", "tache": "Van\nAller chercher commande saq", "who": "2 personnes", "where": "Lambert Closse\n2204 Saint-Catherine St W, Montreal, Quebec H3H 1M7", "materiel": "", "notes": "Commande", "zone": "Autre", "heure_min": 0, "heure_display": "—"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "", "tache": "Van \nAller chercher commande SAQ saint patrick", "who": "2 personnes", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "", "tache": "sécurité, bénévoles, staff, Horaire bar, partout, accueil VIP, ménage, billeterie (tout sauf horaire staff)", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "07:00", "tache": "Livraison du stage et système de son", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "07:00", "tache": "Livraison des blocs de béton", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "07:00", "tache": "Livraison Blocs de bétons", "who": "Home Dépot", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "08:00", "tache": "Aller chercher la van' et le camion 20'", "who": "Diep et alex et luc", "where": "200 Notre dame Est", "materiel": "Camion 10' et 20'", "notes": "Réservation faite au nom de tatiana", "zone": "Autre", "heure_min": 480, "heure_display": "08:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "08:00", "tache": "Faire le marquage au sol pour containers", "who": "Tat", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 480, "heure_display": "08:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "08:20", "tache": "Truck 20 pied\nArrivée a la caserne", "who": "Diep et Alex", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 500, "heure_display": "08:20"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "08:45", "tache": "Van\nArrivée à st ferdinand", "who": "Luc", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 525, "heure_display": "08:45"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "09:00", "tache": "Van\nattendre le déplacement des containers", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 540, "heure_display": "09:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "09:00", "tache": "Livraison du container sur le site. ouverture, tri et inventaire", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 540, "heure_display": "09:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "09:20", "tache": "Camion 20'\nDépart de la caserne vers eli pour tee shirt", "who": "Diệp et Alex", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 560, "heure_display": "09:20"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "09:40", "tache": "Camion 20'\nPick up t-shirt", "who": "Diệp et Alex", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 580, "heure_display": "09:40"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "10:00", "tache": "Arrivé des bénévoles", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "10:10", "tache": "Camion 20'\nRun chez thien", "who": "Diệp et Alex", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 610, "heure_display": "10:10"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "10:30", "tache": "départ de st ferdinand pour chercher commande aubut", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 630, "heure_display": "10:30"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "10:30", "tache": "Camion 20'\nDépart de chez thien pour les meubles", "who": "Diệp et Alex", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 630, "heure_display": "10:30"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "11:00", "tache": "Camion 20'\naller chercher les meubles a bacs", "who": "Diep et alex", "where": "4525 avenue saint kevin", "materiel": "", "notes": "5145669253 ari", "zone": "Externe (livraison)", "heure_min": 660, "heure_display": "11:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "11:00", "tache": "Van\nRécupération de la commande Aubut", "who": "", "where": "luc", "materiel": "", "notes": "", "zone": "Autre", "heure_min": 660, "heure_display": "11:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "11:00", "tache": "Préparer le bbq", "who": "", "where": "sur le site", "materiel": "", "notes": "", "zone": "Site principal", "heure_min": 660, "heure_display": "11:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "11:15", "tache": "arrivée sur site", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 675, "heure_display": "11:15"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "11:30", "tache": "Camion 20'\nArrivée sur le site", "who": "Diệp et Alex", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 690, "heure_display": "11:30"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "11:30", "tache": "Van\nArriver sur le site", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 690, "heure_display": "11:30"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "12:00", "tache": "MANGER!!!", "who": "", "where": "sur le site", "materiel": "", "notes": "", "zone": "Site principal", "heure_min": 720, "heure_display": "12:00"}, {"jour": "2 Juin", "date": "2026-06-02", "phase": "Montage", "jour_label": "Mardi 2 juin", "heure": "17:00", "tache": "Fin de journée pour les bénévoles", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "10:30 ?", "tache": "Check la caserne, carton Suntory.", "who": "Diep", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "10:30 ?"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "Entre 10 et 11h", "tache": "Livraison crème glacée Ozawa", "who": "", "where": "", "materiel": "14 x PREMIUM Matcha Green Tea( A) Ice Cream 11.4L (New) 12 x BLACK SESAME ICE CREAM 5.7L", "notes": "", "zone": "", "heure_min": 0, "heure_display": "Entre 10 et 11:"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "", "tache": "Installation de la scène", "who": "Bruno, Jessy, Maxime, Dominique", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "", "tache": "Aller chercher les 200 affiches à quadriscan", "who": "runner?", "where": "102, 6600 Rue Saint-Urbain, Montréal, QC H2S 3G6", "materiel": "Affiches Yatai", "notes": "", "zone": "Externe (livraison)", "heure_min": 0, "heure_display": "—"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "a", "tache": "installer les rouleaux de couvre plancher", "who": "Par équipe de 6 personnes", "where": "resto", "materiel": "", "notes": "", "zone": "Restauration", "heure_min": 0, "heure_display": "a"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "a", "tache": "installer les tentes marchandes", "who": "par équipes de 6 personnes", "where": "marchands", "materiel": "", "notes": "installer les blocs de bétons au fur et a mesure. Mettre une pile de 2 blocs a chaque fin de rangée. mettre un bloc par 2 pied de tente pour le reste. s'assurer que les toiles des tops de tentes sont bien tirés", "zone": "Marchands", "heure_min": 0, "heure_display": "a"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "a", "tache": "Couper les coro signalétique", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "a"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "b", "tache": "installer les tentes resto", "who": "par équipe de 6 personnes", "where": "Resto", "materiel": "", "notes": "installer les blocs de bétons au fur et a mesure. Mettre une pile de 2 blocs a chaque fin de rangée. mettre un bloc par 2 pied de tente pour le reste. s'assurer que les toiles des tops de tentes sont bien tirés", "zone": "Restauration", "heure_min": 0, "heure_display": "b"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "b", "tache": "Installer les strings lights", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "b"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "c", "tache": "Installer les tables", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "c"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "c", "tache": "installer les chaises", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "c"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "d", "tache": "installer l'accueil", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "d"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "07:00", "tache": "Réception de la commande Asahi", "who": "Tatiana, luc, Alex?", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "07:00", "tache": "Livraison toilettes", "who": "Mauves toilettes", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "07:00", "tache": "Livraison cloture + set up", "who": "Échaffaud plus", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "07:00", "tache": "Réception matériel Asahi", "who": "Tatiana, luc, Alex?", "where": "", "materiel": "3 tentes Asahi, 10 pieds parasols", "notes": "", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "08:00", "tache": "Réception des roulottes frigidaire", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 480, "heure_display": "08:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "10:00", "tache": "Arrivée sur site team production", "who": "Diep, Alex,Luc", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "10:00", "tache": "Installer les choroplastes affiches Yatai", "who": "", "where": "Clotûres", "materiel": "", "notes": "", "zone": "Clôtures", "heure_min": 600, "heure_display": "10:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "10:00", "tache": "Réception du conteneur SAQ", "who": "Tatiana, luc, Alex?", "where": "40 rue des Seigneurs", "materiel": "Conteneurs SAQ 20x8'", "notes": "", "zone": "Site principal", "heure_min": 600, "heure_display": "10:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "10:00", "tache": "Réception des frigos baron du froid", "who": "Tatiana, Luc, Alex?", "where": "40 rue des seigneurs", "materiel": "", "notes": "", "zone": "Site principal", "heure_min": 600, "heure_display": "10:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "10:30", "tache": "Réception de la commande SAQ sur le site", "who": "Tatiana, luc, Alex?", "where": "40 rue des seigneurs", "materiel": "Oriflammes, tabliers, parasols etc..", "notes": "", "zone": "Site principal", "heure_min": 630, "heure_display": "10:30"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "11:00", "tache": "Arrivé sur site team technique, DT", "who": "Bruno, Jessy, Maxime, Dominique", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 660, "heure_display": "11:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "11:00", "tache": "Arrivé des bénévoles", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 660, "heure_display": "11:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "11h15", "tache": "Run La Lutinerie", "who": "Diep + 2 Benevoles", "where": "Check avec Johanna", "materiel": "Monolithes...++", "notes": "Check avec Johanna", "zone": "Autre", "heure_min": 675, "heure_display": "11:15"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "13:00", "tache": "Test gonflable", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 780, "heure_display": "13:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "13:30", "tache": "ex : Départ du camion de chabannel vers le site", "who": "Tatiana, luc", "where": "40 rue des seigneurs", "materiel": "Camion 20'", "notes": "Ne pas oublier d'apeller thien avant de partir tel :", "zone": "Site principal", "heure_min": 810, "heure_display": "13:30"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "15:30", "tache": "Run Consulat du Japon à Montréal", "who": "Luc", "where": "1 Pl. Monseigneur Charbonneau #3333, Montreal, Quebec H3B 3N2", "materiel": "", "notes": "", "zone": "Site principal", "heure_min": 930, "heure_display": "15:30"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "16:45", "tache": "Pick-up Cannettes Asahi Timeout Market", "who": "Luc", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1005, "heure_display": "16:45"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "17:00", "tache": "Fin de journée Tat", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "17:00", "tache": "Fin de journée bénévoles", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "3 Juin", "date": "2026-06-03", "phase": "Montage", "jour_label": "Mercredi 3 juin", "heure": "20:00", "tache": "Fin de journée team production et technique", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "?", "tache": "Livraison du Airstream", "who": "Tatiana, Luc, Alex?", "where": "40 rue des seigneurs", "materiel": "", "notes": "", "zone": "Site principal", "heure_min": 0, "heure_display": "?"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "pick up des pancartes signalétiques", "who": "runner?", "where": "4119 Boul. Saint-Laurent, Montréal, QC H2W 1Y7", "materiel": "", "notes": "", "zone": "Externe (livraison)", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "Couper les choroplastes", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "Installer les choroplastes", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "Alambika bureau", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "T shirts", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "caserne, light neon, chaises", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "SAQ", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "imprimerie à voir avec Luc", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "atelier cité des hospitalieres ? Why?", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "Faire les dernières tentes côté marchand: faire les tables, (les lumières???)", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "Faire les ajustements côté resto: blocs de ciment, faire tables,couper les tie wraps, (les lumière???) etc", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "Installer les coroplastes signalétique", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "", "tache": "Lanternes?", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "07:00", "tache": "livraison table", "who": "Chapiteau Summum", "where": "", "materiel": "", "notes": "Soumission", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "07:00", "tache": "Livraison aubut", "who": "Aubut", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 420, "heure_display": "07:00"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "10:00", "tache": "Arrivée sur site toute team confondue", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "11:00", "tache": "Arrivé sur site bénévoles", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 660, "heure_display": "11:00"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "11h15", "tache": "Préparer BBQ", "who": "5 personnes", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 675, "heure_display": "11:15"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "17:00", "tache": "Fin de journée des bénévoles", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "20:00", "tache": "Fin de journée toute team", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "4 juin", "date": "2026-06-04", "phase": "Montage", "jour_label": "Jeudi 4 juin", "heure": "21:00", "tache": "Aller reporter le camion 20'", "who": "", "where": "2000 Rue notre dame est", "materiel": "", "notes": "", "zone": "Externe (livraison)", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "", "tache": "Aller chercher les tables tournantes au café Osmo x Marusan", "who": "Runner", "where": "51 rue Sherbrooke O", "materiel": "Tables tournantes", "notes": "", "zone": "Externe (livraison)", "heure_min": 0, "heure_display": "—"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "?", "tache": "Réception de la commande Monsieur saké", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "?"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "Entre 12:00 et 14:00", "tache": "Livraison de Mr Glace", "who": "", "where": "", "materiel": "Mettre tout dans le congélateur, et repartir 50 poches de glace sur le festival/ Un par bar", "notes": "", "zone": "", "heure_min": 0, "heure_display": "Entre 12:00 et 14:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "", "tache": "Installer les vinyles selon doc canva", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "10:00", "tache": "Arrivée sur site toute team confondue", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "10:00", "tache": "Réception des tables+ chaises et frigo nestle", "who": "Tatiana, Luc, Alex?", "where": "40 rue des seigneurs", "materiel": "", "notes": "", "zone": "Site principal", "heure_min": 600, "heure_display": "10:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "11:00", "tache": "Arrivée bénévoles vague 1", "who": "", "where": "bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 660, "heure_display": "11:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "13:00", "tache": "nathan début open bar", "who": "Nathan", "where": "Bar jinro", "materiel": "8 ipads, 8 square, 3 mifi, boite matériel de bar, alcool", "notes": "", "zone": "Bar Jinro", "heure_min": 780, "heure_display": "13:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "14:00", "tache": "Arrivée staff bar nathan", "who": "All bartender", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 840, "heure_display": "14:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "14:00", "tache": "Meeting staff bar nathan", "who": "All bartender", "where": "billeterie", "materiel": "Boites de bar", "notes": "", "zone": "Billetterie", "heure_min": 840, "heure_display": "14:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "14:00", "tache": "Arrivée bénévoles vague 2", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 840, "heure_display": "14:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "14:15", "tache": "Fin meeting début montage des bars", "who": "All bartender", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 855, "heure_display": "14:15"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "14:30", "tache": "Installation de la billetterie", "who": "magali + 1 agent d'accueil", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 870, "heure_display": "14:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "14:30", "tache": "Arrivée agent 1 billeterie", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 870, "heure_display": "14:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:00", "tache": "Départ bénévoles vague 1", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 900, "heure_display": "15:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:00", "tache": "8 agents de sécurité sur le site", "who": "", "where": "Chez elle", "materiel": "", "notes": "", "zone": "Externe (livraison)", "heure_min": 900, "heure_display": "15:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:15", "tache": "Installation de la tente accueil VIP", "who": "bénévoles", "where": "Conteneurs frigo", "materiel": "Nape, Table, liste des invités VIP, Coupons de bière, coupon de nourriture", "notes": "", "zone": "Frigo / Conteneurs", "heure_min": 915, "heure_display": "15:15"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:15", "tache": "Briefing sur l'accueil VIP", "who": "Andres, pauline et charles", "where": "glace", "materiel": "", "notes": "", "zone": "Glace", "heure_min": 915, "heure_display": "15:15"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15h30", "tache": "Remettre les bracelets aux marchands", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 930, "heure_display": "15:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15h30", "tache": "Arrivée agent 1 billeterie", "who": "", "where": "Zone partenaire", "materiel": "", "notes": "", "zone": "Zone partenaire", "heure_min": 930, "heure_display": "15:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:30", "tache": "Briefing sécurité", "who": "thien & Tatiana", "where": "hangar", "materiel": "", "notes": "", "zone": "Hangar", "heure_min": 930, "heure_display": "15:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:30", "tache": "Big hype d'open", "who": "Luc, Jonah + bénévoles et staff", "where": "Ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 930, "heure_display": "15:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:30", "tache": "arrivée agent 4 billeterie", "who": "", "where": "ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 930, "heure_display": "15:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:30", "tache": "arrivée obin sur le site, remplissage toilettes, set up poubelles", "who": "obin+1", "where": "Ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 930, "heure_display": "15:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "15:30", "tache": "Briefing équipe d'entrée", "who": "", "where": "ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 930, "heure_display": "15:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:00", "tache": "Début", "who": "Playlist musique", "where": "Stage", "materiel": "Ipad Yasuko", "notes": "", "zone": "Scène", "heure_min": 960, "heure_display": "16:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:00", "tache": "arrivée des bénévoles zone accueil VIP", "who": "bénévoles", "where": "Partout", "materiel": "", "notes": "", "zone": "Partout", "heure_min": 960, "heure_display": "16:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:00", "tache": "ouverture des portes aux vip", "who": "", "where": "Sécurité", "materiel": "", "notes": "", "zone": "Sécurité", "heure_min": 960, "heure_display": "16:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:00", "tache": "test de son", "who": "", "where": "Sécurité", "materiel": "2 microphones, speakers, stage, plug to connect laptop to speakers", "notes": "", "zone": "Sécurité", "heure_min": 960, "heure_display": "16:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:00", "tache": "Arrivée bénévoles vague 3", "who": "", "where": "sécurité", "materiel": "", "notes": "", "zone": "Sécurité", "heure_min": 960, "heure_display": "16:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:00", "tache": "Accueil des invités dans la zone Partenaires et réseautage", "who": "Andres", "where": "sécurité", "materiel": "", "notes": "", "zone": "Sécurité", "heure_min": 960, "heure_display": "16:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:30", "tache": "Accueil des invités dans la zone corporative", "who": "", "where": "soirée réseautage", "materiel": "", "notes": "", "zone": "Zone partenaire", "heure_min": 990, "heure_display": "16:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:30", "tache": "Arrivée équipe de ménage 4 personnes : \n- Déplacer les poubelles vers les conteneurs de déchets\n-s'assurer que les toilettes ont assez de papier et de savon \n- s'assurer que tout est propre et que tout est ramassé sur le plancher", "who": "obin + 4 personnes", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 990, "heure_display": "16:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:30", "tache": "Arrivé Agent 2,3,4 briefing", "who": "Magali + agents", "where": "stage", "materiel": "coupons nourriture", "notes": "", "zone": "Scène", "heure_min": 990, "heure_display": "16:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:30", "tache": "Placer l'accueil VIP", "who": "Bénévoles, Andres, personne en charge", "where": "stage", "materiel": "Liste VIP, coupons boisson, coupons nourriture", "notes": "", "zone": "Scène", "heure_min": 990, "heure_display": "16:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "16:30", "tache": "Soft open doors", "who": "Magali + accueil team", "where": "stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 990, "heure_display": "16:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "17:00", "tache": "Début de la soirée et mot de bienvenue du nouveau Consul général adjoint du Japon", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "17:00", "tache": "Arrival of KMTL Team staff", "who": "Lya,", "where": "Stage", "materiel": "Wire for laptop to put music", "notes": "", "zone": "Scène", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "17:00", "tache": "Ouverture des portes général", "who": "", "where": "stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "17:10", "tache": "Annonce Moment Factory", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1030, "heure_display": "17:10"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "17:15", "tache": "Annonce GSM project", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1035, "heure_display": "17:15"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "17:20", "tache": "Activité du réseautage", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1040, "heure_display": "17:20"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "17:30", "tache": "Fin", "who": "Playlist musique", "where": "Stage", "materiel": "Ipad Yasuko", "notes": "", "zone": "Scène", "heure_min": 1050, "heure_display": "17:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "17:30", "tache": "Arrival of KMTL Team helpers & open stage performers", "who": "Phil, Flora, Tommy", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1050, "heure_display": "17:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18:00", "tache": "Début", "who": "Cérémonie d'ouverture", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18:00", "tache": "Début de la cérémonie d’ouverture animée par Geneviève Borne", "who": "", "where": "stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18:00", "tache": "Départ bénévoles vague 2", "who": "", "where": "stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18h05", "tache": "Allocution de M. Yoshiki Takaku, Consul général adjoint du Japon", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1085, "heure_display": "18:05"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18h08", "tache": "Allocution de Caroline Tessier, attachée politique de Guillaume Cliche-Rivard, Député de Saint-Henri–Sainte-Anne", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1088, "heure_display": "18:08"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18h11", "tache": "Allocution du M. Craig Sauvé, conseiller de la Ville et maire suppléant de l’arrondissement du Sud-Ouest, accompagné par Tan Shan Li, conseillère d’arrondissement du Sud-Ouest", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1091, "heure_display": "18:11"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18h15", "tache": "Allocution de la Conseillère d'arrondissement de Côte-des-Neiges–Notre-Dame-de-Grâce, Stéphanie Valenzuela", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1095, "heure_display": "18:15"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18h19", "tache": "Kampai avec Kuniko Fujita alias Madame Saké suivi du Open stage (danse et chant)", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1099, "heure_display": "18:19"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "18:30", "tache": "Open stage performances", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1110, "heure_display": "18:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "19:00", "tache": "Début performance", "who": "Soirée GACHA POP avec DJ PinkPopo et DJ Pocaille\n\n\n\"", "where": "Stage", "materiel": "1 Microphone, at least 1 monitor", "notes": "I will bring my pionneer DDJ-1000\nOutputs are XLR\nBooth out (monitor) are 1/4 banlaced", "zone": "Scène", "heure_min": 1140, "heure_display": "19:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "19:00", "tache": "Arrivée bénévoles vague 4", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1140, "heure_display": "19:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "20:00", "tache": "Fin de l'activité du réseautage", "who": "", "where": "soirée réseautage", "materiel": "", "notes": "", "zone": "Zone partenaire", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "20:00", "tache": "Départ bénévoles vague 3", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "20:30", "tache": "Fin agent 1 billeterie", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1230, "heure_display": "20:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "21:00", "tache": "Fin agent 2 et 3 billeterie", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "21:30", "tache": "Fin agent 4 billeterie", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1290, "heure_display": "21:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "22:00", "tache": "Fin performance", "who": "Soirée GACHA POP avec DJ PinkPopo et DJ Pocaille\n\n\n\"", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "22:00", "tache": "Closing", "who": "Boris", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "22:00", "tache": "Départ équipe asiasie open", "who": "thien, yassuko, linda , Chrisine, jonah, Magali", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "22:00", "tache": "Fin bar", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "22:00", "tache": "Fermeture des portes", "who": "Magalie", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "22:30", "tache": "Départ équipe de ménage", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1350, "heure_display": "22:30"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "23:00", "tache": "Départ bénévoles vague 4", "who": "Bénévoles", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "23:00", "tache": "debrief journée + big hybe bénévoles", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "23:00", "tache": "fin staff bar", "who": "Staff bar", "where": "tente VIP", "materiel": "", "notes": "", "zone": "Zone VIP", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "23:00", "tache": "3 agents de sécurité sur le site", "who": "", "where": "Tente VIP", "materiel": "", "notes": "", "zone": "Zone VIP", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "5 juin", "date": "2026-06-05", "phase": "Festival J1", "jour_label": "Vendredi 5 juin", "heure": "24:00", "tache": "Fin de journée toute team", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1440, "heure_display": "24:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "Entre 11 et 12h", "tache": "Livraison crème glacée Ozawa", "who": "", "where": "", "materiel": "14 x PREMIUM Matcha Green Tea( A) Ice Cream 11.4L (New) 12 x BLACK SESAME ICE CREAM 5.7L", "notes": "", "zone": "", "heure_min": 0, "heure_display": "Entre 11 et 12:"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "Entre 14:00 et 15:00", "tache": "Livraison Mr Glace", "who": "Tat, diep, Alex?", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "Entre 14:00 et 15:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "10:00", "tache": "Arrivée sur site toute team confondue", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "15:00", "tache": "Répétition chorale pour enfants", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 900, "heure_display": "15:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "15:30", "tache": "Remettre les bracelets aux marchands", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 930, "heure_display": "15:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "15:30", "tache": "Arrivé agent 1 billetterie", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 930, "heure_display": "15:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:00", "tache": "Test de son pour l'événement", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 960, "heure_display": "16:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:00", "tache": "arrivé agent 2 et 3 billetterie", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 960, "heure_display": "16:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:00", "tache": "8 agents sur le site", "who": "", "where": "Sécurité", "materiel": "", "notes": "", "zone": "Sécurité", "heure_min": 960, "heure_display": "16:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:00", "tache": "Faire sortir les voiture du site", "who": "sécurité", "where": "partout", "materiel": "", "notes": "", "zone": "Partout", "heure_min": 960, "heure_display": "16:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:00", "tache": "Arrivée staff bar", "who": "", "where": "bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 960, "heure_display": "16:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:00", "tache": "Arrivée bénévoles vague 1", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 960, "heure_display": "16:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:00", "tache": "Arrival of KMTL Event team staff", "who": "Elizabeth", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 960, "heure_display": "16:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:30", "tache": "Soft open des portes", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 990, "heure_display": "16:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:30", "tache": "playlist", "who": "", "where": "Stage", "materiel": "", "notes": "ipad de Yasuko-san", "zone": "Scène", "heure_min": 990, "heure_display": "16:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:30", "tache": "arrivé agent 4 billeterie", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 990, "heure_display": "16:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:30", "tache": "Ouverture des portes", "who": "", "where": "Billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 990, "heure_display": "16:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "16:30", "tache": "arrivée aubin: remplissage toilettes, set up poubelles", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 990, "heure_display": "16:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "17:00", "tache": "Arrival of KMTL Event helpers & performers", "who": "Phil, Tommy, Lya, Flora", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "17:00", "tache": "Fin des répétition chorale pour enfants", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "17:00", "tache": "Ouverture officielle des porte au public", "who": "", "where": "Entrée principale", "materiel": "", "notes": "S'assurer d'avoir au moins 8 bénévoles à l'entrée pour donner un coup de main avez zeffy et que les affiche pour acheter les billets zeffy soient bien installés", "zone": "Autre", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "17:00", "tache": "Ouverture / playlist", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "17:00", "tache": "ouverture des portes", "who": "", "where": "Billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "17:30", "tache": "arrivée Staff ménage\n4 personnes + obin : \n- Déplacer les poubelles vers les conteneurs de déchets\n-s'assurer que les toilettes ont assez de papier et de savon \n- s'assurer que tout est propre et que tout est ramassé sur le plancher", "who": "", "where": "Ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 1050, "heure_display": "17:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "18:00", "tache": "Début de performance", "who": "Open Stage karaoke", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "18:20", "tache": "Début de performance", "who": "Open Stage SPECIAL XG Dance until 18:50", "where": "Stage", "materiel": "Wire for laptop to play music", "notes": "", "zone": "Scène", "heure_min": 1100, "heure_display": "18:20"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "19:00", "tache": "Début de performance", "who": "Dj Chihana", "where": "Stage", "materiel": "2x Pioneer XDJ1000MK2 et 1 Pioneer DJM750MK2 + éclairage", "notes": "Notre kit à nous", "zone": "Scène", "heure_min": 1140, "heure_display": "19:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "19:00", "tache": "Arrivée bénévoles vague 2", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1140, "heure_display": "19:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "20:00", "tache": "Début de performance", "who": "Dj shosho", "where": "Stage", "materiel": "2x Pioneer XDJ1000MK2 et 1 Pioneer DJM750MK2 + éclairage", "notes": "Notre kit à nous", "zone": "Scène", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "20:00", "tache": "Départ bénévoles vague 1", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "21:00", "tache": "Début de performance", "who": "dj hidi", "where": "Stage", "materiel": "2x Pioneer XDJ1000MK2 et 1 Pioneer DJM750MK2 + éclairage", "notes": "Notre kit à nous", "zone": "Scène", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "21:00", "tache": "depart agent 1 billetterie", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "21:30", "tache": "depart agent 2 et 3 billetterie", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1290, "heure_display": "21:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:00", "tache": "Fin des performance dj", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:00", "tache": "Closing", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:00", "tache": "depart agent 4 billetterie", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:00", "tache": "Fermeture des portes", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:00", "tache": "Closing", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:00", "tache": "départ staff bar", "who": "", "where": "bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:00", "tache": "Fermeture des portes", "who": "Magalie", "where": "Billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:30", "tache": "Départ équipe de ménage", "who": "", "where": "Ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 1350, "heure_display": "22:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "22:30", "tache": "Départ staff ménage", "who": "", "where": "Ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 1350, "heure_display": "22:30"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "23:00", "tache": "debrief journée + big hybe bénévoles", "who": "", "where": "bénévoles", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "23:00", "tache": "départ staff bar", "who": "Staff bar", "where": "bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "23:00", "tache": "3 agents de sécurité sur le site", "who": "", "where": "sécurité", "materiel": "", "notes": "", "zone": "Sécurité", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "23:00", "tache": "départ obin", "who": "", "where": "ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "23:00", "tache": "Départ Obin", "who": "", "where": "Ménage", "materiel": "", "notes": "", "zone": "Ménage", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "23:00", "tache": "Départ bénévoles vague 2", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "6 juin", "date": "2026-06-06", "phase": "Festival J2", "jour_label": "Samedi 6 juin", "heure": "24:00", "tache": "Fin de journée toute team", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1440, "heure_display": "24:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "A partir de 10:00", "tache": "Livraison Mr Glace", "who": "Tat, Diep, Alex, Luc?", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "A partir de 10:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "Avant 10:00", "tache": "Vidage des toilettes", "who": "Toilettes mauves", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "Avant 10:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "10:00", "tache": "Arrivée sur site toute team confondue", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "10:00", "tache": "arrivé agent 1 billetterie", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 600, "heure_display": "10:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "10:00", "tache": "Arrivée bénévoles vague 1", "who": "", "where": "bénévoles", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 600, "heure_display": "10:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "10:00", "tache": "Arrivée staff bar", "who": "", "where": "Bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 600, "heure_display": "10:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "10:00", "tache": "Vérifier si les toilettes sont vidées", "who": "Magalie", "where": "voir plan", "materiel": "", "notes": "", "zone": "Autre", "heure_min": 600, "heure_display": "10:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "10:30", "tache": "Arrivée staff bar", "who": "Joanah et Karlo", "where": "Bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 630, "heure_display": "10:30"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "11:00", "tache": "arrivé agent 2 et 3 billetterie", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 660, "heure_display": "11:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "11:00", "tache": "Arrivée staff bar", "who": "", "where": "bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 660, "heure_display": "11:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "11:00", "tache": "test de son", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 660, "heure_display": "11:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "12:00", "tache": "", "who": "Playlist", "where": "Stage", "materiel": "", "notes": "ipad de Yasuko-san", "zone": "Scène", "heure_min": 720, "heure_display": "12:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "12:00", "tache": "arrivé agent 4 billetterie", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 720, "heure_display": "12:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "12:00", "tache": "playlist", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 720, "heure_display": "12:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "13:00", "tache": "montage", "who": "\"Ghibli au Piano\" par Kanae et ses élèves", "where": "stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 780, "heure_display": "13:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "13:30", "tache": "arrivé agent 5 billetterie", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 810, "heure_display": "13:30"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "14:00", "tache": "debut du show", "who": "\"Ghibli au Piano\" par Kanae et ses élèves", "where": "stage", "materiel": "2 chaises pliantes\n1 micro principale peux être partagé pour MC et violon  \n3 micros pour la chorale et l'ensemble melodicas", "notes": "8-10 personnes sur scène à la fois - bonne connexion et contrôle du son de piano au speaker - ce qu'elle apporte elle-même:  le piano et un chaise par Thien et Yasuko, les instruments (violon et melodicas)", "zone": "Scène", "heure_min": 840, "heure_display": "14:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "14:00", "tache": "Arrivée bénévoles vague 2", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 840, "heure_display": "14:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "14:00", "tache": "Départ bénévoles vague 1", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 840, "heure_display": "14:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "15:00", "tache": "Fin", "who": "\"Ghibli au Piano\" par Kanae et ses élèves", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 900, "heure_display": "15:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "15:15", "tache": "Début du concours shiba stylé", "who": "Concours shiba stylé", "where": "Stage", "materiel": "2 microphones, and we were thinking we can use our 8x8 Backdrop (see pic attached) on stage for a red carpet picture look for the pawparatis to take pics.", "notes": "", "zone": "Scène", "heure_min": 915, "heure_display": "15:15"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "15:30", "tache": "Remettre les bracelets aux marchands", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 930, "heure_display": "15:30"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "16:00", "tache": "Fin", "who": "Concours shiba stylé", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 960, "heure_display": "16:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "16:00", "tache": "Livraison  Mr Glace", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 960, "heure_display": "16:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "16:00", "tache": "", "who": "Playlist", "where": "Stage", "materiel": "", "notes": "ipad de Yasuko-san", "zone": "Scène", "heure_min": 960, "heure_display": "16:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "16:00", "tache": "Arrival of KMTL staff", "who": "Lya", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 960, "heure_display": "16:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "16:00", "tache": "Montage", "who": "McGill Kendo Club", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 960, "heure_display": "16:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "16:15", "tache": "Playlist", "who": "boris", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 975, "heure_display": "16:15"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "16:30", "tache": "debut de la prestation", "who": "McGill Kendo Club", "where": "Stage", "materiel": "un micro pour le MC", "notes": "Armures de kendo et shinai / vêtements", "zone": "Scène", "heure_min": 990, "heure_display": "16:30"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "17:00", "tache": "Fin de la prestation", "who": "McGill Kendo Club", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "17:00", "tache": "Arrival of KMTL Event helpers + performers", "who": "Flora, Tommy", "where": "Staff", "materiel": "", "notes": "", "zone": "Staff", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "17:00", "tache": "Arrivée bénévoles vague 3", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "17:05", "tache": "Test son et montage", "who": "Sanaë", "where": "Stage", "materiel": "", "notes": "Elle apporte sa guitare électrique", "zone": "Scène", "heure_min": 1025, "heure_display": "17:05"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "17:15", "tache": "Début", "who": "Sanae", "where": "Stage", "materiel": "Elle a besoin: 1  microphone, mic stand, guitar cable,music stand, and speaker or Amp", "notes": "", "zone": "Scène", "heure_min": 1035, "heure_display": "17:15"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "17:45", "tache": "fin", "who": "Sanae", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1065, "heure_display": "17:45"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "18:00", "tache": "début", "who": "Open Stage karaoke and Dance", "where": "Stage", "materiel": "Wire for laptop to play music", "notes": "", "zone": "Scène", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "18:00", "tache": "Depart agent billetterie 5", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "18:00", "tache": "Départ bénévoles vague 2", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "18:45", "tache": "Montage", "who": "Soirée JPOP-CityPop", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1125, "heure_display": "18:45"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "19:00", "tache": "Début prestation", "who": "Soirée JPOP-CityPop", "where": "Stage", "materiel": "2x Pioneer XDJ1000MK2 et 1 Pioneer DJM750MK2 + éclairage", "notes": "List of equipment you bring yourself - USB drives for the CDJs, headphones.", "zone": "Scène", "heure_min": 1140, "heure_display": "19:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "20:00", "tache": "Arrival of staff & sound testing", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "20:00", "tache": "Arrivée bénévoles vague 4", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "20:00", "tache": "Depart agent Billetterie 1", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "20:30", "tache": "Arrival of Performers", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1230, "heure_display": "20:30"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "21:00", "tache": "closing", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "21:00", "tache": "Depart agent Billetterie 2", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "21:00", "tache": "Départ bénévoles vague 3", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "21:30", "tache": "Depart agent billetterie 3", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1290, "heure_display": "21:30"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "22:00", "tache": "Fin", "who": "Soirée JPOP-CityPop", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "22:00", "tache": "Depart agent billetterie 4", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "22:00", "tache": "Départ staff bar", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "22:00", "tache": "Ne pas oublier de fermer le stage", "who": "", "where": "stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1320, "heure_display": "22:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "23:00", "tache": "Départ bénévoles vague 4", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "23:00", "tache": "Départ staff bar", "who": "le reste", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "7 juin", "date": "2026-06-07", "phase": "Festival J3", "jour_label": "Dimanche 7 juin", "heure": "24:00", "tache": "Fin de journée toute team", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1440, "heure_display": "24:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "démonter le stage", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "aller chercher le 20'", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "défaire les string light coté marchands les mettre dans les bacs", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "mettre les tentes dans le hangar", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "embarquer les roll case du stage dans le hangar", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "mettre les tables dans le hangar", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "Mettre les chaises dans le hangar", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "mettre les tentes dans le hangar", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "loader 2 palettes de ciments dans la van pour retour home dépot demain matin", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "", "tache": "Mettre les tables en bois par piles de 10 au centre du terrain s'assurer qu'on en a 60", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "10:00", "tache": "Arrivé agent Billetterie 2", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "10:00", "tache": "Vérifier si les toilettes sont vidées", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "10:00", "tache": "Arrivée bénévoles vague 1", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 600, "heure_display": "10:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "10:00", "tache": "Arrivée staff bar", "who": "", "where": "Bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 600, "heure_display": "10:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "10:30", "tache": "Arrivée staff bar", "who": "", "where": "Bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 630, "heure_display": "10:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "11:00", "tache": "test de son", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 660, "heure_display": "11:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "11:00", "tache": "Arrivé agent Billetterie 1, 3, 4", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 660, "heure_display": "11:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "11:00", "tache": "Arrivée staff bar", "who": "", "where": "bar", "materiel": "", "notes": "", "zone": "Bars", "heure_min": 660, "heure_display": "11:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "11:30", "tache": "montage", "who": "\"Ghibli au Piano\" par Kanae et ses élèves", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 690, "heure_display": "11:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "12:00", "tache": "", "who": "Playlist", "where": "Stage", "materiel": "", "notes": "ipad de Yasuko-san", "zone": "Scène", "heure_min": 720, "heure_display": "12:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "12:00", "tache": "playlist", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 720, "heure_display": "12:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "12:00", "tache": "arrivé agent billetterie 5", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 720, "heure_display": "12:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "12:30", "tache": "Début prestation", "who": "\"Ghibli au Piano\" par Kanae et ses élèves", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 750, "heure_display": "12:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "13:30", "tache": "Fin prestation et démontage", "who": "\"Ghibli au Piano\" par Kanae et ses élèves", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 810, "heure_display": "13:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "13:45", "tache": "montage", "who": "Shima no Taiko", "where": "Stage", "materiel": "", "notes": "Il est important de nous garantir que la scène soit complètement asséchée après un épisode de pluie ultérieur pour la sécurité de nos joueurs.", "zone": "Scène", "heure_min": 825, "heure_display": "13:45"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "14:00", "tache": "show débute à 14h", "who": "Shima no Taiko", "where": "Stage", "materiel": "1 micro", "notes": "18 tambours\n\n18 stands pour les tambours\n\nTapis noirs et bâches pour déposer les tambours pour monter et descendre de scène, ainsi que pour procéder à leur emballage dans les sacs de transport.\n\nPetits accessoires de percussion (narimonos) - Inventaire complet à confirmer\n\nEmballages de transport pour l’ensemble du matériel (hors-scène)\n\nBachis (bâtons): quantité variée\n\nÀ confirmer: éléments de costumes supplémentaires pour un changement entre les pièces: hors-scène jusqu’au moment de les enfiler.", "zone": "Scène", "heure_min": 840, "heure_display": "14:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "14:00", "tache": "Arrivée bénévoles vague 2", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 840, "heure_display": "14:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "14:00", "tache": "Départ bénévoles vague 1", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 840, "heure_display": "14:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "14:15", "tache": "Fin prestation", "who": "Shima no Taiko", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 855, "heure_display": "14:15"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "14:20", "tache": "Début performance", "who": "atelier de saké", "where": "Stage", "materiel": "micro et table pour mettre son matériel", "notes": "", "zone": "Scène", "heure_min": 860, "heure_display": "14:20"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "14:40", "tache": "Fin performance", "who": "atelier de saké", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 880, "heure_display": "14:40"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "14:50", "tache": "Montage", "who": "Démonstration d'une cérémonie du thé japonaise (par Madame Matcha)", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 890, "heure_display": "14:50"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "15:00", "tache": "Aller chercher le 20'", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 900, "heure_display": "15:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "15:00", "tache": "Début de la prestation", "who": "Démonstration d'une cérémonie du thé japonaise (par Madame Matcha)", "where": "Stage", "materiel": "2 microphones ( elle et public) idéalement sans fil", "notes": "Accessoires utilisés pour la cérémonie, bouilloire , mini tasses en papier (pour servir le matcha)", "zone": "Scène", "heure_min": 900, "heure_display": "15:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "15:30", "tache": "Fin de la prestation", "who": "Démonstration d'une cérémonie du thé japonaise (par Madame Matcha)", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 930, "heure_display": "15:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "15:30", "tache": "Remettre les bracelets aux marchands", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 930, "heure_display": "15:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "15:45", "tache": "Montage", "who": "Shima no Taiko", "where": "Stage", "materiel": "", "notes": "Il est important de nous garantir que la scène soit complètement asséchée après un épisode de pluie ultérieur pour la sécurité de nos joueurs.", "zone": "Scène", "heure_min": 945, "heure_display": "15:45"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:00", "tache": "Arrival of KMTL Event staff", "who": "Elizabeth", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 960, "heure_display": "16:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:00", "tache": "début à 16h", "who": "Shima no Taiko", "where": "Stage", "materiel": "1 micro", "notes": "18 tambours\n\n18 stands pour les tambours\n\nTapis noirs et bâches pour déposer les tambours pour monter et descendre de scène, ainsi que pour procéder à leur emballage dans les sacs de transport.\n\nPetits accessoires de percussion (narimonos) - Inventaire complet à confirmer\n\nEmballages de transport pour l’ensemble du matériel (hors-scène)\n\nBachis (bâtons): quantité variée\n\nÀ confirmer: éléments de costumes supplémentaires pour un changement entre les pièces: hors-scène jusqu’au moment de les enfiler.", "zone": "Scène", "heure_min": 960, "heure_display": "16:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:00", "tache": "Allumer le kit de sons et test technique", "who": "Régisseur", "where": "stage", "materiel": "Kit de base", "notes": "Juste s'assurer que tout fonctionne correctement\nTester les microphones sans fils", "zone": "Scène", "heure_min": 960, "heure_display": "16:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:00", "tache": "Depart agent Billetterie 5", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 960, "heure_display": "16:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:15", "tache": "Fin", "who": "Shima no Taiko", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 975, "heure_display": "16:15"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:15", "tache": "Playlist", "who": "", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 975, "heure_display": "16:15"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:20", "tache": "Arrivé des artistes- montage", "who": "Kimono Yuki dance japonaise + playlist", "where": "Stage", "materiel": "Kit de base", "notes": "Vérifier L'ordre des chansons pour la performance -Passer une moppe sur le stage pour ensuite installer ses tatamis qu'elle apporte d'elle-même\nPréparer la playlist musicale", "zone": "Scène", "heure_min": 980, "heure_display": "16:20"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:30", "tache": "show débute à 16h30", "who": "Kimono Yuki dance japonaise + playlist", "where": "stage", "materiel": "headset microphone+ micro baton + sa musique en soundtrack", "notes": "elle + peut-être un enfant sur la scène", "zone": "Scène", "heure_min": 990, "heure_display": "16:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:50", "tache": "fin - démontage", "who": "Kimono Yuki dance japonaise + playlist", "where": "stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1010, "heure_display": "16:50"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "16:50", "tache": "Arrivé des musiciens - montage", "who": "Chura Dushi - okinawa music performance", "where": "Stage", "materiel": "", "notes": "Il désir du soutien pour le setting ( spécifier dans le courriel)", "zone": "Scène", "heure_min": 1010, "heure_display": "16:50"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "17:00", "tache": "Arrival of KMTL Event Team staff + performers", "who": "Phil, Tommy", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "17:00", "tache": "show", "who": "Chura Dushi - okinawa music performance", "where": "Stage", "materiel": "- audio mixer, the monitor,\nMicrophone x 1 and a mixer So that we can plug in the instrument.", "notes": "2 personnes sur la scène - List of equipment the artist bring himself\n- Sanshin (w/pick up microphone)x1\n- Taiko drum x1\n- vocal mirophone\n-1/4 inch cable\n-mic cable\n- mic stand", "zone": "Scène", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "17:00", "tache": "Arrivée bénévoles vague 3", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1020, "heure_display": "17:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "17:30", "tache": "Fin et démontage", "who": "Chura Dushi - okinawa music performance", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1050, "heure_display": "17:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "17:30", "tache": "", "who": "Playlist", "where": "Stage", "materiel": "", "notes": "ipad de Yasuko-san", "zone": "Scène", "heure_min": 1050, "heure_display": "17:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "18:00", "tache": "début", "who": "Open Stage karaoke and Dance", "where": "Stage", "materiel": "Plug for laptop to play music", "notes": "", "zone": "Scène", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "18:00", "tache": "Depart Agent Billetterie 1", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "18:00", "tache": "Départ bénévoles vague 2", "who": "", "where": "bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1080, "heure_display": "18:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "19:00", "tache": "Depart agent billetterie 3 , 4", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1140, "heure_display": "19:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "19:30", "tache": "fin", "who": "Open Stage karaoke and Dance", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1170, "heure_display": "19:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "19:30", "tache": "Playlist", "who": "boris, Elizabeth,", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1170, "heure_display": "19:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "20:00", "tache": "Closing", "who": "boris, Elizabeth,", "where": "Stage", "materiel": "", "notes": "", "zone": "Scène", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "20:00", "tache": "Depart agent Billetterie 1", "who": "", "where": "billeterie", "materiel": "", "notes": "", "zone": "Billetterie", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "20:00", "tache": "Arrivée bénévoles vague 4", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "20:30", "tache": "Départ staff bar", "who": "Marina, jordan, yuka, charlotte, caroline", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1230, "heure_display": "20:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "21:00", "tache": "Départ bénévoles vague 3", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "21:00", "tache": "arrivée équipe melchor", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1260, "heure_display": "21:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "21:30", "tache": "Départ staff bar", "who": "karo, jo, nathan", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1290, "heure_display": "21:30"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "23:00", "tache": "S'assurer que les conteneurs de bouffe sont VIDE", "who": "Christine", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1380, "heure_display": "23:00"}, {"jour": "8 juin", "date": "2026-06-08", "phase": "Festival J4", "jour_label": "Lundi 8 juin", "heure": "23:59", "tache": "Départ bénévoles vague 4", "who": "", "where": "Bénévole", "materiel": "", "notes": "", "zone": "Bénévoles", "heure_min": 1439, "heure_display": "23:59"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "Livraison d'un 2 containeur pour le reste du recyclage", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "Récupération des caisses par Asahi", "who": "Tatiana, Luc, Alex?", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "Récupération du matériel par Asahi", "who": "Tatiana, Luc, Alex?", "where": "", "materiel": "3 Tentes Asahi,10 pieds parasols", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "récupération des toilettes mauves", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "récupération des clotures", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "pick up des cloture", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "défaire les clotures en piles", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "ramener les tentes coté restau dans le hangar", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "pick up des tables en bois", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "démontage de l'électricité", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "pick up du stage", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "Run monolithes", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "apporter le systhème de son à l'entrepot", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "Run Caserne", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "run thien", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "", "tache": "repporter les blocs de bétons", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "09:00", "tache": "Récupération du matériel par SAQ", "who": "Tatiana, Luc, Alex?", "where": "40 rue des seigneurs", "materiel": "Oriflammes, tabliers, parasols etc..", "notes": "", "zone": "Site principal", "heure_min": 540, "heure_display": "09:00"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "10:00", "tache": "Arrivée sur site toute team confondue", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 600, "heure_display": "10:00"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "10:00", "tache": "Récupération des conteneurs SAQ", "who": "Tatiana, Luc, Alex?", "where": "40 rue des seigneurs", "materiel": "Conteneurs SAQ 20x8'", "notes": "", "zone": "Site principal", "heure_min": 600, "heure_display": "10:00"}, {"jour": "9 juin", "date": "2026-06-09", "phase": "Démontage", "jour_label": "Mardi 9 juin", "heure": "13h", "tache": "aller chercher les étagères", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 780, "heure_display": "13:"}, {"jour": "10 juin", "date": "2026-06-10", "phase": "Démontage", "jour_label": "Mercredi 10 juin", "heure": "", "tache": "récupération des conteneur de déchet", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "10 juin", "date": "2026-06-10", "phase": "Démontage", "jour_label": "Mercredi 10 juin", "heure": "pm", "tache": "récupération des conteneur de déchet", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "pm"}, {"jour": "10 juin", "date": "2026-06-10", "phase": "Démontage", "jour_label": "Mercredi 10 juin", "heure": "", "tache": "retour a la saq", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "10 juin", "date": "2026-06-10", "phase": "Démontage", "jour_label": "Mercredi 10 juin", "heure": "", "tache": "retour aubut", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 0, "heure_display": "—"}, {"jour": "10 juin", "date": "2026-06-10", "phase": "Démontage", "jour_label": "Mercredi 10 juin", "heure": "20:00", "tache": "Fin de journée toute team", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1200, "heure_display": "20:00"}, {"jour": "10 juin", "date": "2026-06-10", "phase": "Démontage", "jour_label": "Mercredi 10 juin", "heure": "21:00", "tache": "Aller reporter le camion 10' et 20'", "who": "", "where": "", "materiel": "", "notes": "", "zone": "", "heure_min": 1260, "heure_display": "21:00"}];
+
+const DAYS = [
+  { date: '2026-06-02', label: 'Mar 2', name: 'Mardi', phase: 'Montage' },
+  { date: '2026-06-03', label: 'Mer 3', name: 'Mercredi', phase: 'Montage' },
+  { date: '2026-06-04', label: 'Jeu 4', name: 'Jeudi', phase: 'Montage' },
+  { date: '2026-06-05', label: 'Ven 5', name: 'Vendredi', phase: 'Festival J1' },
+  { date: '2026-06-06', label: 'Sam 6', name: 'Samedi', phase: 'Festival J2' },
+  { date: '2026-06-07', label: 'Dim 7', name: 'Dimanche', phase: 'Festival J3' },
+  { date: '2026-06-08', label: 'Lun 8', name: 'Lundi', phase: 'Festival J4' },
+  { date: '2026-06-09', label: 'Mar 9', name: 'Mardi', phase: 'Démontage' },
+  { date: '2026-06-10', label: 'Mer 10', name: 'Mercredi', phase: 'Démontage' },
+];
+
+let state = {
+  activeDay: '2026-06-05',  // Festival J1 par défaut
+  activeZone: 'Toutes',
+  search: '',
+};
+
+// Get all distinct zones with counts
+function getZones() {
+  const dayEvents = EVENTS.filter(e => e.date === state.activeDay);
+  const counts = {};
+  dayEvents.forEach(e => {
+    if (e.zone) counts[e.zone] = (counts[e.zone] || 0) + 1;
+  });
+  return Object.entries(counts).sort((a,b) => b[1] - a[1]);
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function highlight(text, query) {
+  if (!query || !text) return escapeHtml(text);
+  const escaped = escapeHtml(text);
+  const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return escaped.replace(re, '<mark>$1</mark>');
+}
+
+function isLive(event) {
+  // Vérifier si l'événement est "en cours" (date d'aujourd'hui et heure proche)
+  const now = new Date();
+  const todayStr = now.toISOString().slice(0, 10);
+  if (event.date !== todayStr) return false;
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  return event.heure_min > 0 && Math.abs(event.heure_min - nowMin) < 30;
+}
+
+function renderDays() {
+  const nav = document.getElementById('daysNav');
+  nav.innerHTML = DAYS.map(d => {
+    const count = EVENTS.filter(e => e.date === d.date).length;
+    const active = d.date === state.activeDay ? 'active' : '';
+    return `<button class="day-btn ${active}" data-date="${d.date}">
+      <span class="day-name">${d.name}</span>
+      <span class="day-num">${d.label.split(' ')[1]}</span>
+      <span class="day-phase">${d.phase}</span>
+    </button>`;
+  }).join('');
+  nav.querySelectorAll('.day-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.activeDay = btn.dataset.date;
+      state.activeZone = 'Toutes';
+      render();
+    });
+  });
+}
+
+function renderFilters() {
+  const filters = document.getElementById('filters');
+  const zones = getZones();
+  const totalDay = EVENTS.filter(e => e.date === state.activeDay).length;
+  let html = `<button class="chip ${state.activeZone === 'Toutes' ? 'active' : ''}" data-zone="Toutes">Toutes <span class="chip-count">${totalDay}</span></button>`;
+  zones.forEach(([z, n]) => {
+    const active = state.activeZone === z ? 'active' : '';
+    html += `<button class="chip ${active}" data-zone="${escapeHtml(z)}">${escapeHtml(z)} <span class="chip-count">${n}</span></button>`;
+  });
+  filters.innerHTML = html;
+  filters.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      state.activeZone = chip.dataset.zone;
+      render();
+    });
+  });
+}
+
+function getFilteredEvents() {
+  let evs = EVENTS.filter(e => e.date === state.activeDay);
+  if (state.activeZone !== 'Toutes') {
+    evs = evs.filter(e => e.zone === state.activeZone);
+  }
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    evs = evs.filter(e => 
+      (e.tache && e.tache.toLowerCase().includes(q)) ||
+      (e.who && e.who.toLowerCase().includes(q)) ||
+      (e.where && e.where.toLowerCase().includes(q)) ||
+      (e.materiel && e.materiel.toLowerCase().includes(q)) ||
+      (e.notes && e.notes.toLowerCase().includes(q))
+    );
+  }
+  return evs;
+}
+
+function renderContent() {
+  const day = DAYS.find(d => d.date === state.activeDay);
+  const events = getFilteredEvents();
+  const content = document.getElementById('content');
+  
+  let html = `
+    <div class="day-heading">
+      <h2>${day.name} ${day.label.split(' ')[1]} juin · ${day.phase}</h2>
+      <div class="day-stats">${events.length} événement${events.length > 1 ? 's' : ''}</div>
+    </div>
+    <div class="events">
+  `;
+  
+  if (events.length === 0) {
+    html += `
+      <div class="empty">
+        <div class="empty-icon">∅</div>
+        <div class="empty-title">Aucun événement</div>
+        <div class="empty-sub">Essayez un autre filtre ou recherche</div>
+      </div>
+    `;
+  } else {
+    events.forEach(e => {
+      const live = isLive(e) ? 'live' : '';
+      const timeClass = e.heure_display === '—' ? 'no-time' : '';
+      const q = state.search;
+      
+      let metaParts = [];
+      if (e.who) metaParts.push(`<span><span class="label">Qui</span> <span class="value">${highlight(e.who, q)}</span></span>`);
+      if (e.where) metaParts.push(`<span><span class="zone-tag">${escapeHtml(e.zone || e.where)}</span></span>`);
+      if (e.materiel) metaParts.push(`<span><span class="label">Matériel</span> <span class="value">${highlight(e.materiel, q)}</span></span>`);
+      
+      html += `
+        <article class="event ${live}">
+          <div class="event-time ${timeClass}">${escapeHtml(e.heure_display)}</div>
+          <div class="event-body">
+            <div class="event-task">${highlight(e.tache, q)}</div>
+            ${metaParts.length > 0 ? `<div class="event-meta-row">${metaParts.join('')}</div>` : ''}
+            ${e.notes ? `<div class="event-notes">${highlight(e.notes, q)}</div>` : ''}
+          </div>
+        </article>
+      `;
+    });
+  }
+  
+  html += `</div>`;
+  content.innerHTML = html;
+  
+  // Scroll to live event if any
+  const liveEl = content.querySelector('.event.live');
+  if (liveEl && !state.search && state.activeZone === 'Toutes') {
+    setTimeout(() => liveEl.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+  }
+  
+  document.getElementById('totalEvents').textContent = `${events.length} / ${EVENTS.filter(e => e.date === state.activeDay).length} affichés`;
+}
+
+function render() {
+  renderDays();
+  renderFilters();
+  renderContent();
+}
+
+// Search
+const searchInput = document.getElementById('searchInput');
+const btnClear = document.getElementById('btnClear');
+searchInput.addEventListener('input', e => {
+  state.search = e.target.value.trim();
+  btnClear.classList.toggle('visible', state.search.length > 0);
+  renderContent();
+});
+btnClear.addEventListener('click', () => {
+  searchInput.value = '';
+  state.search = '';
+  btnClear.classList.remove('visible');
+  searchInput.focus();
+  renderContent();
+});
+
+// "Now" button
+document.getElementById('btnNow').addEventListener('click', () => {
+  const now = new Date();
+  const todayStr = now.toISOString().slice(0, 10);
+  // Trouver le jour du festival le plus proche d'aujourd'hui
+  const matchDay = DAYS.find(d => d.date === todayStr);
+  if (matchDay) {
+    state.activeDay = todayStr;
+  } else {
+    // Si on n'est pas pendant le festival, aller à Festival J1 par défaut
+    state.activeDay = '2026-06-05';
+  }
+  state.activeZone = 'Toutes';
+  searchInput.value = '';
+  state.search = '';
+  btnClear.classList.remove('visible');
+  render();
+});
+
+// Init
+render();
+</script>
+</body>
+</html>
